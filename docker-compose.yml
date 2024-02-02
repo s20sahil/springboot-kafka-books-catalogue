@@ -1,0 +1,42 @@
+version: '3.8'
+
+# Extends kafka Docker Compose file for better readability
+services:
+  zookeeper:
+    extends:
+      file: docker-compose-kafka.yml
+      service:  zookeeper
+  
+  kafka1:
+    extends:
+      file: docker-compose-kafka.yml
+      service:  kafka1
+
+  kafka2:
+    extends:
+      file: docker-compose-kafka.yml
+      service:  kafka2
+  
+  kafka3:
+    extends:
+      file: docker-compose-kafka.yml
+      service:  kafka3
+    
+# Start of Spring boot service related conatiners
+
+  postgres-library:     
+    image: postgres:latest
+    expose:
+      - "5432"
+    ports:
+      - 5432:5432
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: library-service
+      POSTGRES_USER: technolearninventory
+      POSTGRES_PASSWORD: technolearnpwd
+      PGDATA: /data/postgres
+    volumes: 
+      - ./.postgres-library:/data/postgres #Mapping postgres's DB data storage path to dir outside of container
+
+#Spring boot service conatiners 
