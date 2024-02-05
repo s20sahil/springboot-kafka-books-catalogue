@@ -1,4 +1,4 @@
-package com.technolearn.ms.kafkaproducer;
+package com.technolearn.ms.kafka;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
