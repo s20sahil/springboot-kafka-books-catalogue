@@ -33,7 +33,7 @@ services:
     restart: unless-stopped
     environment:
       POSTGRES_DB: library-service
-      POSTGRES_USER: technolearninventory
+      POSTGRES_USER: technolearnlibrary
       POSTGRES_PASSWORD: technolearnpwd
       PGDATA: /data/postgres
     volumes: 
