@@ -105,18 +105,7 @@ public class KafkaConsumerIntegrationTests {
 
 	@BeforeEach
 	void setUp() {
-		/*
-		 * var container = endpointRegistry.getListenerContainers()
-		 * .stream()
-		 * .filter(messageListenerContainer ->
-		 * Objects.equals(messageListenerContainer.getGroupId(),
-		 * "library-events-listener-group"))
-		 * .collect(Collectors.toList()).get(0);
-		 * ContainerTestUtils.waitForAssignment(container,
-		 * embeddedKafkaBroker.getPartitionsPerTopic());
-		 */
-		System.out.println("+++++++++++" + kafkaTemplate.getDefaultTopic());
-
+		
 		for (MessageListenerContainer messageListenerContainer : endpointRegistry.getListenerContainers()) {
 			System.out.println("Group Id : " + messageListenerContainer.getGroupId());
 			if (Objects.equals(messageListenerContainer.getGroupId(), "library-events-listener-group")) {

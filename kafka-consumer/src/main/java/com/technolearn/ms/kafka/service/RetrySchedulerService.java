@@ -29,10 +29,8 @@ public class RetrySchedulerService {
         failureRecordRepository.findAllByStatus(status)
                 .forEach(failureRecord -> {
                     try {
-                        //libraryEventsService.processLibraryEvent();
                         var consumerRecord = buildConsumerRecord(failureRecord);
                         libraryEventsService.processLibraryEvent(consumerRecord);
-                       // libraryEventsConsumer.onMessage(consumerRecord); // This does not involve the recovery code for in the consumerConfig
                         failureRecord.setStatus(LibraryEventsConsumerConfig.SUCCESS);
                     } catch (Exception e){
                         log.error("Exception in retryFailedRecords : ", e);
