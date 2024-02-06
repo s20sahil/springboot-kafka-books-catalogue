@@ -1,0 +1,61 @@
+version: '3.8'
+
+# Extends kafka Docker Compose file for better readability
+services:
+  zoo1:
+    extends:
+      file: ./kafka-ssl/docker-compose.yml
+      service:  zoo1
+  
+  kafka1:
+    extends:
+      file: ./kafka-ssl/docker-compose.yml
+      service:  kafka1
+
+# Start of Spring boot service related conatiners
+
+  postgres-library:     
+    image: postgres:latest
+    expose:
+      - "5432"
+    ports:
+      - 5432:5432
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: library-service
+      POSTGRES_USER: technolearnlibrary
+      POSTGRES_PASSWORD: technolearnpwd
+      PGDATA: /data/postgres
+    volumes: 
+      - ./.postgres-library:/data/postgres #Mapping postgres's DB data storage path to dir outside of container
+
+#Spring boot service containers 
+
+  kafka-producer:
+    container_name: kafka-producer
+    image: technolearn/kafka-producer:latest
+    expose:
+      - "9000"
+    ports:
+      - "9000:9000"
+    pull_policy: always
+    environment:
+      - SPRING_PROFILES_ACTIVE=ssl
+    depends_on:
+      - zoo1
+      - kafka1
+  
+  kafka-consumer:
+    container_name: kafka-consumer
+    image: technolearn/kafka-consumer:latest
+    expose:
+      - "9001"
+    ports:
+      - "9001:9001"
+    pull_policy: always
+    environment:
+      - SPRING_PROFILES_ACTIVE=ssl
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-library:5432/library-service
+    depends_on:
+      - zoo1
+      - kafka1
