@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.technolearn.ms.kafka.dto.BookDto;
-import com.technolearn.ms.kafka.model.Book;
 import com.technolearn.ms.kafka.repository.BookRepository;
 
 import lombok.RequiredArgsConstructor;

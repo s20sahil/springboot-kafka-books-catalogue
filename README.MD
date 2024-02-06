@@ -10,7 +10,7 @@ This repository explores the features of Springboot to integrate Apache kafka ev
 
 The diagram below self-explanatory and represents the high level components which are created by this project
 
-![High level component diagram](blueprint.png)
+![High level component diagram](blueprint-kafka.png)
 
 ## Quickstart
 
@@ -27,34 +27,35 @@ IMPORTANT : If tyou are running project in local and try to update the docker im
 ```
 
 **#Data stores**
-postgres-library => image: postgres:latest
+- postgres-library => image: postgres:latest
 
 **#Event Brokers**
-zookeeper => image: confluentinc/cp-zookeeper:latest
-kafka1 => image : confluentinc/cp-kafka:latest
-kafka2 => image : confluentinc/cp-kafka:latest
-kafka3 => image : confluentinc/cp-kafka:latest
+- zookeeper => image: confluentinc/cp-zookeeper:latest
+- kafka1 => image : confluentinc/cp-kafka:latest
+- kafka2 => image : confluentinc/cp-kafka:latest
+- kafka3 => image : confluentinc/cp-kafka:latest
 
 
 **#Spring boot Service Containers**
 
-discovery-server => image: technolearn/discovery-server-books-catalogue:latest
-api-gateway => image: technolearn/api-gateway-books-catalogue:latest
-library-service image: technolearn/product-books-catalogue:latest
+- kafka-producer => image: technolearn/kafka-producer:latest
+- kafka-consumer => image: technolearn/kafka-consumer:latest
 
 ```bash
 docker compose up -d #Because the file name is docker-compose.yml, you do not have to provide filename
 ```
 
-## Quick Access Links Upon Startup
+## Quick Access Links 
 
 Once the application is up and running after executing the `docker compose up -d` command(Running all the spring boot services in their own containers) we can acces the links given below. 
 
+ 
+1. POST Service for creating library book scan events(Please note that the data needs to be populated manually) : http://localhost:9000/api/books   
+2. Search books by name & author in library-service : http://localhost:9001/api/library/search?q=bookNameOrAuthorNameHere
 
-1. Eureka Server UI client : http://localhost:8080/eureka/web    
-2. API Gateway endpoint to make other service calls : http://localhost:8181/api/*
-    1. library-service : http://localhost:8181/api/products
-    
+## Other Handy shortcuts
+1. Postman collection which sample request and response for the aforemention API calls can be found in the folder [postman-collection](./postman-collection)
+2. Useful Kafka commands to validate local setup using [docker-compose-kafka.yml](./docker-compose-kafka.yml) can be found in the file [KafkaCommands.md](./KafkaCommands.md)
 
 ## Testing
 
@@ -66,9 +67,11 @@ To run the junit tests, open a terminal and go to the root directory and make us
 
 ## TODOs
 
-1. 
-2. 
+1. Create file based bulk uploads of library events/inventory
+2. Secured connection in between Kafka clusters and producer/consumer
 
 ## References
 
-- [Auto generated references trhough SpringBoot Initializer](./HELP.md)
+- [Auto generated references through SpringBoot Initializer](./HELP.md)
+- [Spring for Apache Kafka](https://docs.spring.io/spring-kafka/reference/)
+- [Apache Kafka for Developers using Spring Boot](https://www.udemy.com/course/apache-kafka-for-developers-using-springboot/)

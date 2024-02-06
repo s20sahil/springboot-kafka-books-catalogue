@@ -1,0 +1,263 @@
+{
+	"info": {
+		"_postman_id": "17225b5e-6ce7-4539-8ef0-4ad48247cd7d",
+		"name": "Kafka Spring Boot Microservice",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7741044"
+	},
+	"item": [
+		{
+			"name": "Kafka Producer - Book Scan Request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"libraryEventId\": 1,\n    \"book\": {\n        \"id\": 1000,\n        \"name\": \"Animal Farm\",\n        \"author\": \"George Orville\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9000/api/books",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"api",
+						"books"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "sample 1",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"libraryEventId\": 1,\n    \"book\": {\n        \"id\": 1000,\n        \"name\": \"Animal Farm\",\n        \"author\": \"George Orville\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9000/api/books",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"api",
+								"books"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain;charset=UTF-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "32"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 05 Feb 2024 07:32:00 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "Book event created successfully!"
+				},
+				{
+					"name": "sample 2",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"libraryEventId\": 3,\n    \"book\": {\n        \"id\": 1002,\n        \"name\": \"Guns of Navarone\",\n        \"author\": \"Allistair McLean\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9000/api/books",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"api",
+								"books"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain;charset=UTF-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "32"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 05 Feb 2024 20:59:58 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "Book event created successfully!"
+				},
+				{
+					"name": "sample 3 - Bad Request",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"libraryEventId\": 1,\n    \"book\": {\n        \"id\": null,\n        \"name\": null,\n        \"author\": null\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9000/api/books",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"api",
+								"books"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 05 Feb 2024 09:04:37 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"book.id\": \"must not be null\",\n    \"book.name\": \"must not be blank\",\n    \"book.author\": \"must not be blank\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Kafka Consumer MS - Search Library Request",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": [
+				{
+					"name": "sample 1",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9001/api/library/search?q=Chr",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9001",
+							"path": [
+								"api",
+								"library",
+								"search"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "Chr"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 06 Feb 2024 07:12:26 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": 1003,\n        \"name\": \"The Murder on Orient Express\",\n        \"author\": \"Agatha Christie\",\n        \"eventId\": 5\n    }\n]"
+				}
+			]
+		}
+	]
+}

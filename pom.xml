@@ -20,7 +20,6 @@
     <modules>
         <module>kafka-producer</module>
 		<module>kafka-consumer</module>
-        <module>library-service</module>
     </modules>
 
     <properties>
@@ -110,7 +109,7 @@
                     <from>
                         <image>arm64v8/eclipse-temurin:17-jre-ubi9-minimal</image>
                     </from>
-                    <to><image>registry.hub.docker.com/technolearn/${artifactId}</image></to>
+                    <to><image>registry.hub.docker.com/technolearn/${project.artifactId}</image></to>
                 </configuration>
             </plugin>
 		</plugins>
