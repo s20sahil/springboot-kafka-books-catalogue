@@ -30,7 +30,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Configuration
-@EnableKafka
 @RequiredArgsConstructor
 @Slf4j
 public class LibraryEventsConsumerConfig {
@@ -43,7 +42,7 @@ public class LibraryEventsConsumerConfig {
     private final LibraryEventsService libraryEventsService;
 
     private final KafkaProperties kafkaProperties;
-
+ 
     private final KafkaTemplate kafkaTemplate;
 
     private final KafkaConsumptionFailureService failureService;
@@ -83,6 +82,9 @@ public class LibraryEventsConsumerConfig {
         }
     };
 
+    /**
+     * Error handler for concurrent consumer factory.
+     */
     public DefaultErrorHandler errorHandler() {
 
         var exceptiopnToIgnorelist = List.of(
@@ -121,6 +123,12 @@ public class LibraryEventsConsumerConfig {
         return defaultErrorHandler;
     }
 
+    /**
+     * To configer concurrent listeners
+     * @param configurer
+     * @param kafkaConsumerFactory
+     * @return
+     */
     @Bean
     @ConditionalOnMissingBean(name = "kafkaListenerContainerFactory")
     ConcurrentKafkaListenerContainerFactory<?, ?> kafkaListenerContainerFactory(

@@ -19,14 +19,16 @@ public class LibraryReadService {
     private final BookRepository bookRespository;
 
     /**
-     * Delegating call to named query method 
+     * Delegating call to named query method
+     * 
      * @param query
      * @return
      */
     public List<BookDto> search(String query) {
-        return bookRespository.findByNameLike(query).stream().map(
-            book -> new BookDto(book.getId(), book.getName(), book.getAuthor())
-        ).toList();
+        return bookRespository.findByNameContainingIgnoreCaseOrAuthorContainingIgnoreCase(query, query).stream().map(
+                book -> new BookDto(book.getId(), book.getName(), book.getAuthor(),
+                        book.getLibraryEvent().getEventId()))
+                .toList();
     }
-    
+
 }
