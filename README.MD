@@ -68,7 +68,6 @@ To run the junit tests, open a terminal and go to the root directory and make us
 ## TODOs
 
 1. Create file based bulk uploads of library events/inventory
-2. Secured connection in between Kafka clusters and producer/consumer
 
 ## References
 
