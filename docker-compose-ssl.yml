@@ -39,6 +39,8 @@ services:
     ports:
       - "9000:9000"
     pull_policy: always
+    volumes:
+      - ./kafka-ssl:/kafka-ssl
     environment:
       - SPRING_PROFILES_ACTIVE=ssl
     depends_on:
@@ -53,6 +55,8 @@ services:
     ports:
       - "9001:9001"
     pull_policy: always
+    volumes:
+      - ./kafka-ssl:/kafka-ssl
     environment:
       - SPRING_PROFILES_ACTIVE=ssl
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-library:5432/library-service
